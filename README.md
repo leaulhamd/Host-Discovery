@@ -1,5 +1,5 @@
-# Host-Discovery-IP-and-MAC-Address-Scanner-with-Manufacturer-Lookup-
-"This script performs a network scan to identify devices on a given IP address range and retrieves information about each device's MAC address and manufacturer. The script uses nmap for scanning, arp for retrieving MAC addresses, and a public API to look up manufacturer details based on MAC address prefixes.
+IP and MAC Address Scanner with Manufacturer Lookup
+This script performs a network scan to identify devices on a given IP address range and retrieves information about each device's MAC address and manufacturer. The script uses nmap for scanning, arp for retrieving MAC addresses, and a public API to look up manufacturer details based on MAC address prefixes.
 
 Features
 IP Address Class Detection: Identifies the class of the given IP address (Class A, B, or C).
@@ -8,7 +8,6 @@ Fast Scanning: Uses nmap for quick network discovery with limited retries and ti
 MAC Address Lookup: Retrieves the MAC addresses of active devices.
 Manufacturer Identification: Looks up the manufacturer of each MAC address using a public API.
 Formatted Output: Displays results in a neatly formatted table showing IP address, MAC address, and manufacturer name.
-
 Usage
 Clone the Repository:
 
@@ -39,4 +38,4 @@ Contributing
 Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
 
 Author
-Md Leaul Hamd Moeen" 
+MD Leaul Hamd Moeen
