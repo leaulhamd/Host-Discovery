@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Display the banner
 echo "                                                           "
 echo " _____         _      ____  _                             "
 echo "|  |  |___ ___| |_   |    \|_|___ ___ ___ _ _ ___ ___ _ _ "
-echo "|     | . |_ -|  _|  |  |  | |_ -|  _| . | | | -_|  _| | |"
+echo "|  -  | . |_ -|  _|  |  |  | |_ -|  _| . | | | -_|  _| | |"
 echo "|__|__|___|___|_|    |____/|_|___|___|___|\_/|___|_| |_  |"
 echo "                                                    |___|"
 echo "                                                          "
@@ -13,7 +12,7 @@ echo "                                                          "
     echo "--------------------------------------------------------------"
     echo "                                                               "
 
-# Function to determine the class of an IP address
+
 get_ip_class() {
     ip=$1
     IFS='.' read -r -a octets <<< "$ip"
@@ -28,7 +27,7 @@ get_ip_class() {
     fi
 }
 
-# Function to determine the network range based on the IP class
+
 get_network_range() {
     ip=$1
     IFS='.' read -r -a octets <<< "$ip"
@@ -47,7 +46,7 @@ get_network_range() {
     echo $network_range
 }
 
-# Function to lookup the manufacturer name for a MAC address
+
 get_producer_name_online() {
     mac_prefix=$(echo $1 | cut -d: -f1-3)
     # Query the MAC address lookup API
@@ -59,37 +58,37 @@ get_producer_name_online() {
     fi
 }
 
-# Prompt the user for the IP address
+
 read -p "Enter the IP address to scan: " ip_address
 
-# Debug output for IP address
+
 echo "Debug: IP Address = '$ip_address'"
 
-# Ensure an IP address was provided
+
 if [ -z "$ip_address" ]; then
     echo "Error: An IP address must be specified."
     exit 1
 fi
 
-# Determine the class of the IP address
+
 ip_class=$(get_ip_class "$ip_address")
 echo "                                           "
 echo "The IP address $ip_address is in $ip_class."
 
-# Get the network range based on the IP class
+
 network_range=$(get_network_range "$ip_address")
 echo "                                           "
 echo "Scanning network range: $network_range..."
 
-# Perform a fast nmap scan to get IP and MAC addresses
+
 nmap -sn --max-retries=2 --host-timeout=100ms -oG - $network_range | awk '/Up$/{print $2}' > live_hosts.txt
 
-# Print the header for the table
+
 echo "------------------------------------------------------"
 printf "%-15s %-20s %s\n" "IP Address" "MAC Address" "Producer Name"
 printf "%-15s %-20s %s\n" "--------- " "-------------------" "----------------"
 
-# Print each row in the table
+
 while read -r ip; do
     mac=$(arp -n $ip | awk '/ether/ {print $3}')
     if [ -n "$mac" ]; then
@@ -98,5 +97,4 @@ while read -r ip; do
     fi
 done < live_hosts.txt
 
-# Clean up
 rm live_hosts.txt
